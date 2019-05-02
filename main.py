@@ -3,34 +3,61 @@ import time
 import sys
 import spotipy.util
 from config import *
+import threading
 
 scope = 'playlist-modify-public,user-read-playback-state,streaming'
 redirect_uri = 'http://localhost/'
+track_uri_short = '4RdRa3qq0GBSKjomxrkh5K'
+track_uri_long = 'spotify:track:'+ track_uri_short
+
 a = spotipy.util.prompt_for_user_token(username,scope, client_id, client_secret, redirect_uri)
-#4gQBDT9n_WStK-lixihLunUhvQm0TLaIlB5JbSyjPAyCQCfY5ZOxAnFZqiLLYfeJPp5Al1YA7SZhUArl3pLREiACSRHw8WgK2-V9DEgw_sQZ6lpPK
 sp = spotipy.Spotify(a)
-analysis = sp.audio_analysis('2Z8WuEywRWYTKe1NybPQEW') # analysis for the song ride
-#sp.start_playback(uris=['spotify:track:2Z8WuEywRWYTKe1NybPQEW'])
+analysis = sp.audio_analysis(track_uri_short) # analysis for the song ride
 beats = analysis['beats']
+segments = analysis['segments']
 sections = analysis['sections']
-print([x['key'] for x in analysis['sections']])
-sp.start_playback('7993c4c7caa8989983a7f6f519826aeb0c1eb3e9', uris = ["spotify:track:2Z8WuEywRWYTKe1NybPQEW"])
+durations = [sp.audio_features(track_uri_short)[0]['duration_ms'], sum([x['duration'] for x in sections])]
+print(analysis['segments'][9]['duration'])
+
+isPlaying = False
+
+colors = ['\033[41m','\033[42m','\033[43m','\033[44m',
+            '\033[45m','\033[46m','\033[31m','\033[93m','\033[93m',
+            '\033[91m','\033[95m','\033[34m']
+#### WHY IS sectionColorizer starting on the non first section????
 
 
-def sectionColorizer(key,duration):
-    global beats
-    if key == 10:
-        print('\033[31m', end = '')
-        timerFunc(duration, beatKeeper)
-    elif key == 4:
-        print('\033[32m', end = '')
-        timerFunc(duration, beatKeeper)
-    elif key == 3:
-        print('\033[33m', end = '')
-        timerFunc(duration, beatKeeper)
-    elif key == 1:
-        print('\033[34m', end = '')
-        timerFunc(duration, beatKeeper)
+def play(starting_sections_time):
+    global sp
+    global isPlaying
+    sp.start_playback( uris = [track_uri_long])
+    time.sleep(starting_sections_time)
+
+
+def sectionColorizer(sections):
+    for i in range(len(sections)):
+        key, duration = sections[i]['key'], sections[i]['duration']
+        print(sections[i]['start'])
+        if i == 0:
+            play(sections[i]['start'])
+        if key <= len(colors):
+            print(colors[key], end = '')
+            timerFunc(duration-0.01, beatKeeper)
+
+
+def segmentColorizer(segments):
+    global colors
+    for i in range(len(segments)):
+        pitch, duration = max(segments[i]['pitches']), segments[i]['duration']
+
+        if i == 0:
+            play(sections[i]['start'])
+
+        if pitch < len(colors):
+            print(colors[segments[i]['pitches'].index(pitch)] + 'PAT IS GAY', end = '')
+            print(pitch)
+            time.sleep(duration)
+
 
 
 def beatKeeper(arg=None):
@@ -39,7 +66,7 @@ def beatKeeper(arg=None):
     Updates the global beats list that holds beats, outputs a beat.
     """
     beat = beats[0]
-    print(beat, len(beats))
+    print(beat['pitches'], len(beats))
     time.sleep(beat['duration'])
     beats.remove(beat)
 
@@ -47,8 +74,20 @@ def beatKeeper(arg=None):
 def timerFunc(seconds,func,args=None):
     t_end = time.time() + seconds
     while time.time() < t_end:
-        print(time.time()-t_end)
+        print(t_end-time.time())
         func.__call__(args)
 
-for section in sections:
-    sectionColorizer(section['key'], section['duration'])
+def lightify():
+    global durations
+    global sections
+    global sp
+    global segments
+
+    duration_diff = durations[0]/1000 - durations[1]
+
+    if duration_diff > 1:
+        sections[-1]['duration'] += duration_diff
+    #sectionColorizer(sections)
+    segmentColorizer(segments)
+
+lightify()
