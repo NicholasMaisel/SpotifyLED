@@ -45,15 +45,15 @@ def play(starting_sections_time):
 
 def sectionColorizer(sections):
     for i in range(len(sections)):
-            key, duration = sections[i]['key'], sections[i]['duration']
-            print(sections[i]['start'])
-	if i == 0:
+        key, duration = sections[i]['key'], sections[i]['duration']
+        print(sections[i]['start'])
+        if i == 0:
             play(sections[i]['start'])
         if key <= len(colors):
             color_chars[0].write(led_colors[key][0])
-	color_chars[1].write(led_colors[key][1])
-	color_chars[2].write(led_colors[key][2])
-        	timerFunc(duration-0.01, beatKeeper)
+            color_chars[1].write(led_colors[key][1])
+            color_chars[2].write(led_colors[key][2])
+            timerFunc(duration-0.01, beatKeeper)
 
 
 def segmentColorizer(segments):
@@ -71,7 +71,6 @@ def segmentColorizer(segments):
 
 
 def sectionLEDColorizer(sections):
-
     for i in range(len(sections)):
         key, duration = sections[i]['key'], sections[i]['duration']
         print(sections[i]['start'])
