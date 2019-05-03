@@ -16,9 +16,9 @@ def sectionLEDColorizer(sections):
             color_chars[0].write(led_colors[key][0])
             color_chars[1].write(led_colors[key][1])
             color_chars[2].write(led_colors[key][2])
-			time.sleep(duration)
+            time.sleep(duration)
 		#if sections[i+1]['key'] == key:
-			color_chars[0].write(b'\x00')
+            color_chars[0].write(b'\x00')
             color_chars[1].write(b'\x00')
             color_chars[2].write(b'\x00')
 
