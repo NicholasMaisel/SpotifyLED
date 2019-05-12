@@ -106,10 +106,9 @@ def segmentColorizer(segments):
             play(sections[i]['start'])
 
         if pitch < len(colors):
-            print(colors[segments[i]['pitches'].index(pitch)] + 'PAT IS GAY', end = '')
+            print(colors[segments[i]['pitches'].index(pitch)] + 'Beat', end = '')
             print(pitch)
             time.sleep(duration)
-
 
 def sectionColorizer(sections):
     for i in range(len(sections)):
