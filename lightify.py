@@ -7,15 +7,14 @@ from config import default_track_uri
 
 class Lightify:
     def __init__(self,track_uri=None):
-        spotify = spotifyhandler.spotify_auth()
-        bt_device = bth.LEDController()
-        track_uri = default_track_uri
-        print(self.track_uri)
-        analysis = None
-        duration = None
-        if bt_device and spotify and track_uri:
+        self.spotify = spotifyhandler.spotify_auth()
+        self.bt_device = bth.LEDController()
+        self.track_uri = default_track_uri
+        self.analysis = None
+        self.duration = None
+        if self.bt_device and self.spotify and self.track_uri:
             self.prep()
-            if analysis:
+            if self.analysis:
                 self.lightItUp()
         else:
             print(f'Error. lol how useless is this message!?')
