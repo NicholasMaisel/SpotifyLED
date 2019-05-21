@@ -12,7 +12,7 @@ class Lightify:
         self.bt_device = bth.LEDController()
         self.track_uri = default_track_uri
         self.analysis = None
-        self.duration = None
+        self.durations = None
         if self.bt_device and self.spotify and self.track_uri:
             self.prep()
             if self.analysis:
@@ -30,7 +30,7 @@ class Lightify:
 
     def prep(self):
         self.analysis = spotifyhandler.get_track_analysis(self.spotify,self.track_uri)
-        self.duration = spotifyhandler.get_track_duration(self.spotify,self.track_uri, self.analysis)
+        self.durations = spotifyhandler.get_track_duration(self.spotify,self.track_uri, self.analysis)
 
         # Adds remaining time to last segment for segmenent colorizing
         duration_diff = self.durations[0]/1000 - self.durations[1]
@@ -40,7 +40,11 @@ class Lightify:
     def lightItUp(self,mode='segments'):
 
         if mode == 'segments':
+<<<<<<< HEAD
             controller.segmentColorizer(self.bt_device,self.play, analysis[segments])
+=======
+            controller.segmentColorizer(self.bt_device, self.analysis['segments'])
+>>>>>>> 2492d7b5dd8554d3aac71cf97a1a8485ae9d6a9d
 
         else:
             print(f'[*] Mode: {mode} is not recognized...')
