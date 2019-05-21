@@ -40,7 +40,7 @@ class Lightify:
     def lightItUp(self,mode='segments'):
 
         if mode == 'segments':
-            controller.segmentColorizer(self.bt_device,self.play, self.analysis[segments])
+            controller.segmentColorizer(self.bt_device,self.play, self.analysis['segments'])
 
         else:
             print(f'[*] Mode: {mode} is not recognized...')
