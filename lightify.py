@@ -7,10 +7,14 @@ import time
 
 
 class Lightify:
-    def __init__(self,track_uri=None):
+    def __init__(self,mode=None,track_uri=None):
         self.spotify = spotifyhandler.spotify_auth()
         self.bt_device = bth.LEDController()
-        self.track_uri = default_track_uri
+        if mode == 'current':
+            current_track = spotify.current_playback()['item']
+            self.track_uri = current_track
+        else:
+            self.track_uri = default_track_uri
         self.analysis = None
         self.durations = None
         if self.bt_device and self.spotify and self.track_uri:
@@ -51,4 +55,4 @@ class Lightify:
 
 
 
-a = Lightify()
+a = Lightify(mode='current')
