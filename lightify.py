@@ -25,7 +25,7 @@ class Lightify:
         self.track_uri = input('Please input the spotify track uri: ')
 
     def play(self,starting_sections_time):
-        sp.start_playback('spotify:track:' + self.track_uri)
+        self.spotify.start_playback('spotify:track:' + self.track_uri)
         time.sleep(starting_sections_time)
 
     def prep(self):
