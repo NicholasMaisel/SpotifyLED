@@ -33,6 +33,6 @@ def get_track_duration(sp,track_uri,analysis):
         occur throughout lightify'''
 
     durations = [sp.audio_features(track_uri_short)[0]['duration_ms'],
-                                sum([x['duration'] for x in analysis['sections'])]
+                                sum([x['duration'] for x in analysis['sections']])]
 
     return(durations)
