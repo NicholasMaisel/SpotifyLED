@@ -28,11 +28,11 @@ def get_track_analysis(sp,track_uri, analysis_part=None):
 
     return(analysis)
 
-def get_track_duration(sp,track_uri):
+def get_track_duration(sp,track_uri,analysis):
     ''' Returns 'durations' that is used for various timing error that
         occur throughout lightify'''
 
     durations = [sp.audio_features(track_uri_short)[0]['duration_ms'],
-                                sum([x['duration'] for x in sections])]
+                                sum([x['duration'] for x in analysis['sections'])]
 
     return(durations)
