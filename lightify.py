@@ -25,7 +25,7 @@ class Lightify:
 
     def prep(self):
         self.analysis = spotifyhandler.get_track_analysis(self.spotify,self.track_uri)
-        self.duration = spotifyhandler.get_track_duration(self.spotify,self.track_uri)
+        self.duration = spotifyhandler.get_track_duration(self.spotify,self.track_uri, self.analysis)
 
         # Adds remaining time to last segment for segmenent colorizing
         duration_diff = self.durations[0]/1000 - self.durations[1]
