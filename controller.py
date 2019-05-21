@@ -1,7 +1,7 @@
 import time
 from config import led_colors
 
-def segmentColorizer(bt_device, segments):
+def segmentColorizer(bt_device,play_func, segments):
     ''' Used to control the LED lights based on spotify's segment objects
         provided by the spotify API'''
 
@@ -9,7 +9,7 @@ def segmentColorizer(bt_device, segments):
         pitch, duration = max(segments[i]['pitches']), segments[i]['duration']
 
         if i == 0:
-            play(sections[i]['start'])
+            play_func.__Call__(segments[i]['start'])
 
         if pitch < len(led_colors):
             R=led_colors[segments[i]['pitches'].index(pitch)][0]
