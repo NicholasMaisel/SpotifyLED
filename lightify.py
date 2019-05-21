@@ -10,6 +10,7 @@ class Lightify:
         spotify = spotifyhandler.spotify_auth()
         bt_device = bth.LEDController()
         track_uri = default_track_uri
+        print(self.track_uri)
         analysis = None
         duration = None
         if bt_device and spotify and track_uri:
