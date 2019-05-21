@@ -42,7 +42,11 @@ class Lightify:
         if mode == 'segments':
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             controller.segmentColorizer(self.bt_device,self.play, analysis[segments])
+=======
+            controller.segmentColorizer(self.bt_device, self.analysis['segments'])
+>>>>>>> 2492d7b5dd8554d3aac71cf97a1a8485ae9d6a9d
 =======
             controller.segmentColorizer(self.bt_device, self.analysis['segments'])
 >>>>>>> 2492d7b5dd8554d3aac71cf97a1a8485ae9d6a9d
