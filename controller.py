@@ -9,7 +9,7 @@ def segmentColorizer(bt_device,play_func, segments):
         pitch, duration = max(segments[i]['pitches']), segments[i]['duration']
 
         if i == 0:
-            play_func.__Call__(segments[i]['start'])
+            play_func.__call__(segments[i]['start'])
 
         if pitch < len(led_colors):
             R=led_colors[segments[i]['pitches'].index(pitch)][0]
