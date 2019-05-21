@@ -24,8 +24,8 @@ class Lightify:
         self.track_uri = input('Please input the spotify track uri: ')
 
     def prep(self):
-        self.analysis = spotifyhandler.get_track_analysis(self.track_uri)
-        self.duration = spotifyhandler.get_track_duration(self.track_uri)
+        self.analysis = spotifyhandler.get_track_analysis(self.spotify,self.track_uri)
+        self.duration = spotifyhandler.get_track_duration(self.spotify,self.track_uri)
 
         # Adds remaining time to last segment for segmenent colorizing
         duration_diff = self.durations[0]/1000 - self.durations[1]
