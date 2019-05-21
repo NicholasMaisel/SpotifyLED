@@ -2,6 +2,7 @@ import spotifyhandler
 import controller
 import bluetoothhandler as bth
 from config import default_track_uri
+import time
 
 
 
@@ -23,6 +24,10 @@ class Lightify:
     def set_track_uri(self, track_uri):
         self.track_uri = input('Please input the spotify track uri: ')
 
+    def play(starting_sections_time):
+        sp.start_playback('spotify:track:' + self.track_uri)
+        time.sleep(starting_sections_time)
+
     def prep(self):
         self.analysis = spotifyhandler.get_track_analysis(self.spotify,self.track_uri)
         self.duration = spotifyhandler.get_track_duration(self.spotify,self.track_uri, self.analysis)
@@ -35,7 +40,7 @@ class Lightify:
     def lightItUp(self,mode='segments'):
 
         if mode == 'segments':
-            controller.segmentColorizer(self.bt_device, analysis[segments])
+            controller.segmentColorizer(self.bt_device,self.play, analysis[segments])
 
         else:
             print(f'[*] Mode: {mode} is not recognized...')
