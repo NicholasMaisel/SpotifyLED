@@ -17,7 +17,7 @@ def spotify_auth():
 
     return(sp)
 
-def get_track_analysis(track_uri, analysis_part=None):
+def get_track_analysis(sp,track_uri, analysis_part=None):
     ''' Returns an analysis list with analysis parts such as
         beats, segments, sections, etc...'''
 
@@ -28,7 +28,7 @@ def get_track_analysis(track_uri, analysis_part=None):
 
     return(analysis)
 
-def get_track_duration(track_uri):
+def get_track_duration(sp,track_uri):
     ''' Returns 'durations' that is used for various timing error that
         occur throughout lightify'''
 
