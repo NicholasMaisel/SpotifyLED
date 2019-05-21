@@ -12,6 +12,7 @@ class Lightify:
         self.bt_device = bth.LEDController()
         if mode == 'current':
             current_track = self.spotify.current_playback()['item']
+            print(current_track)
             self.track_uri = current_track
         else:
             self.track_uri = default_track_uri
