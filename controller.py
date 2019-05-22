@@ -1,9 +1,10 @@
 import time
-from config import led_colors
+import colorhandler
 
 def segmentColorizer(bt_device,play_func, segments):
     ''' Used to control the LED lights based on spotify's segment objects
         provided by the spotify API'''
+    led_colors = colorhandler.rgb_to_hex()
 
     for i in range(len(segments)):
         pitch, duration = max(segments[i]['pitches']), segments[i]['duration']
